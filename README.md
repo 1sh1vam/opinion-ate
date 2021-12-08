@@ -1,5 +1,5 @@
 # Getting Started with Create React App
-#OPINION-ATE
+# OPINION-ATE
 
 an app for tracking the reviews of dishes at different restaurents.
 

@@ -1,4 +1,4 @@
-import {API_KEY} from '../../src/config.js';
+import {API_KEY} from '../../src/config';
 
 describe('Listing Restaurents', () => {
   it('shows restaurents from the server', () => {

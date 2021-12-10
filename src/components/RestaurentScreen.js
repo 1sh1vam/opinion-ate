@@ -1,11 +1,14 @@
+import {Typography, Card, CardContent} from '@material-ui/core';
 import RestaurentList from './RestaurentList';
 
 const RestaurentScreen = () => {
   return (
-    <div>
-      <h1>Restaurents</h1>
-      <RestaurentList />
-    </div>
+    <Card>
+      <CardContent>
+        <Typography variant="h5">Restaurents</Typography>
+        <RestaurentList />
+      </CardContent>
+    </Card>
   );
 };
 

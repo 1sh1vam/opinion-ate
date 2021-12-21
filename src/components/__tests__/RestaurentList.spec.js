@@ -68,5 +68,4 @@ describe('RestaurentList', () => {
 
     expect(queryByTestId('loading-indicator')).not.toBeNull();
   });
-
 });

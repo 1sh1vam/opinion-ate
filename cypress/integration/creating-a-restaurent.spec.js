@@ -16,12 +16,10 @@ describe('Creating a restaurent', () => {
     cy.route({
       method: 'POST',
       url: `https://outside-in-dev-api.herokuapp.com/${API_KEY}/restaurants`,
-      response: [
-        {
-          id: restaurentId,
-          name: restaurentName,
-        },
-      ],
+      response: {
+        id: restaurentId,
+        name: restaurentName,
+      },
     }).as('addRestaurent');
 
     cy.visit('/');

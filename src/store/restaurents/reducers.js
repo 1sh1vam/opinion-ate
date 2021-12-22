@@ -1,10 +1,18 @@
 import {combineReducers} from 'redux';
-import {STORE_RESTAURENTS, START_LOADING, LOADING_FAILS} from './actions';
+import {
+  STORE_RESTAURENTS,
+  START_LOADING,
+  LOADING_FAILS,
+  ADD_RESTAURENT,
+} from './actions';
 
 const records = (state = [], action) => {
   switch (action.type) {
     case STORE_RESTAURENTS:
       return action.records;
+    case ADD_RESTAURENT:
+      console.log('action', action);
+      return [...state, action.record];
     default:
       return state;
   }

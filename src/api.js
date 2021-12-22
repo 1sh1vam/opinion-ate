@@ -12,6 +12,10 @@ const api = {
       return response.data;
     });
   },
+
+  createRestaurent(name) {
+    return client.post('/restaurants', {name}).then(response => response.data);
+  },
 };
 
 export default api;

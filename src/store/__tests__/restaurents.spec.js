@@ -1,6 +1,6 @@
 import {applyMiddleware, createStore} from 'redux';
 import thunk from 'redux-thunk';
-import {loadRestaurents} from '../restaurents/actions';
+import {createRestaurent, loadRestaurents} from '../restaurents/actions';
 import restaurentsReducer from '../restaurents/reducers';
 
 describe('restaurents', () => {
@@ -106,6 +106,63 @@ describe('restaurents', () => {
 
       it('clears error flag', async () => {
         expect(store.getState().loadingError).toEqual(false);
+      });
+    });
+  });
+
+  describe('createRestaurent action', () => {
+    const newRestaurentName = 'Salad Place';
+
+    const existingRestaurent = {id: 1, name: 'Pasta Place'};
+    const newRestaurent = {id: 2, name: newRestaurentName};
+
+    let api;
+    let store;
+    let promise;
+
+    beforeEach(async () => {
+      api = {
+        createRestaurent: jest.fn().mockName('createRestaurent'),
+      };
+
+      const initial_state = {records: [existingRestaurent]};
+
+      store = createStore(
+        restaurentsReducer,
+        initial_state,
+        applyMiddleware(thunk.withExtraArgument(api)),
+      );
+    });
+
+    it('saves the restaurent to the server', () => {
+      api.createRestaurent.mockResolvedValue(newRestaurent);
+      store.dispatch(createRestaurent(newRestaurentName));
+      expect(api.createRestaurent).toHaveBeenCalledWith(newRestaurentName);
+    });
+
+    describe('when save succeeds', () => {
+      beforeEach(() => {
+        api.createRestaurent.mockResolvedValue(newRestaurent);
+        promise = store.dispatch(createRestaurent(newRestaurentName));
+      });
+
+      it('stores the returned store value in the store', () => {
+        expect(store.getState().records).toEqual([
+          existingRestaurent,
+          newRestaurent,
+        ]);
+      });
+
+      it('resolves', () => {
+        expect(promise).resolves.toBeUndefined();
+      });
+    });
+
+    describe('when save fails', () => {
+      it('rejects', () => {
+        api.createRestaurent.mockRejectedValue();
+        promise = store.dispatch(createRestaurent(newRestaurentName));
+        expect(promise).rejects.toBeUndefined();
       });
     });
   });

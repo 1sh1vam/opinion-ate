@@ -19,6 +19,8 @@ export const RestaurentList = ({
     loadRestaurents();
   }, [loadRestaurents]);
 
+  console.log('restauresnts', restaurents);
+
   return (
     <>
       {loading && <CircularProgress data-testid="loading-indicator" />}
